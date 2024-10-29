@@ -565,6 +565,7 @@ class AdminController extends Controller
         $data->stok          = $request->stok;
         $data->kategori      = $request->kategori;
         $data->deskripsi     = $request->deskripsi;
+        $data->status        = 1;
         $data->harga         = $request->harga;
         $data->diskon = $request->diskon;
         $data->harga_akhir = $request->harga_akhir;
@@ -633,6 +634,7 @@ class AdminController extends Controller
             'kategori'       => $request->kategori,
             'deskripsi'      => $request->deskripsi,
             'diskon'         => $request->diskon,
+            'status'         => 1,
             'foto'           => $filename,
             'harga_akhir'    => $request->harga_akhir,
         ];
@@ -878,6 +880,21 @@ class AdminController extends Controller
     {
         $user = user::find($id)->delete();
         return redirect('akunpelanggan');
+    }
+
+    public function softdeleteproduk(Request $request, $id_produk)
+    {
+
+        $produk = Produk::where('id_produk', $id_produk)->first();
+        if ($produk) {
+            if ($produk->status == 1) {
+                $produk->update(['status' => 2]);
+                // Tambahkan pesan sukses atau redirect ke halaman yang lebih informatif
+                return redirect('produk')->with('success', 'Status produk berhasil diperbarui.');
+            }
+        } else {
+            return redirect()->back()->with('error', 'Produk tidak ditemukan.');
+        }
     }
 
 }

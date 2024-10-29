@@ -76,4 +76,6 @@ Route::post('simpankategori', [AdminController::class, 'storekategori']);
 Route::get('editkategori/{id}/edit',[AdminController::class,'editkategori']);
 Route::put('updatekategori/{id}',[AdminController::class,'updatekategori']);
 Route::DELETE('deletekategori/{id}', [AdminController::class, 'destroykategori']);
+
+Route::put('/softdeleteproduk/{id_produk}', [AdminController::class, 'softdeleteproduk'])->name('softdeleteproduk');
 });

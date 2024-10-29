@@ -39,7 +39,7 @@
         </div>
         <div class="">
           <label for="tlp" class="form-label">No Hp</label>
-          <input type="number" class="form-control" name="tlp" id="tlp">
+          <input type="number" class="form-control" name="tlp" id="tlp" min="0">
         </div>
         <div class="">
           <label for="tlp_gabung" class="form-label"></label>

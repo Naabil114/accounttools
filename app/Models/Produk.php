@@ -27,6 +27,7 @@ class Produk extends Model
         'foto',
         'deskripsi',
         'diskon',
+        'status',
         'harga_akhir',
     ];
     public function kategoriakun()
