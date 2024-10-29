@@ -39,6 +39,8 @@
           </tr>
           @else
           @foreach ($data as $y => $x)
+          @if ($x->is_active == 1)
+
           @if ($x->role == 'admin')
           <tr class="table-danger">
             
@@ -77,10 +79,10 @@
                 </button>
               </a>
 
-              <form method="POST" action="{{url('deleteakun/' . $x->id) }}" class="d-inline">
-                @method('DELETE')
+              <form action="{{ url('softdeleteadmin', $x->id) }}" method="POST" class="d-inline">
                 @csrf
-                <button type="submit" class="btn">
+                @method('PUT')
+                <button type="submit" class="btn"  onclick="return confirm('Are you sure you want to soft delete this product?');">
                   <iconify-icon icon="solar:trash-bin-2-broken" class="text-black" width="20"></iconify-icon>
                 </button>
               </form>
@@ -88,6 +90,7 @@
 
             </td>
           </tr>
+          @endif
           @endforeach
           @endif
         </tbody>

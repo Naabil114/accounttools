@@ -74,7 +74,7 @@
             <td class="text-black">
               
               <!-- <div class="d-flex justify-content-around"> -->
-                <a href="{{url("editakunpelanggan/$x->id/edit") }}" data-id="{{ $x->id }}">
+              <a href="{{url("editakunpelanggan/$x->id/edit") }}" data-id="{{ $x->id }}">
                 <button type="button" class="btn">
                   <iconify-icon icon="solar:clapperboard-edit-linear" class="text-black" width="20"></iconify-icon>
                 </button>
