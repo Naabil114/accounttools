@@ -39,13 +39,15 @@
           </tr>
           @else
           @foreach ($data as $y => $x)
+          @if ($x->is_active === 1)
+          
           @if ($x->role === 'pelanggan')
           <tr class="table-primary">
             
             @else
-          <tr class="table-danger">
-            @endif
-
+            <tr class="table-danger">
+              @endif
+              
           
             <!-- <td>{{++$y}}</td> -->
             <td class="text-black"><img src="{{ asset('storage/user/' . $x->foto) }}" style=" border-radius: 50%;" width="50" height="45"></td>
@@ -70,25 +72,27 @@
               @endif
             </td>
             <td class="text-black">
-
-            <!-- <div class="d-flex justify-content-around"> -->
-            <a href="{{url("editakunpelanggan/$x->id/edit") }}" data-id="{{ $x->id }}">
+              
+              <!-- <div class="d-flex justify-content-around"> -->
+                <a href="{{url("editakunpelanggan/$x->id/edit") }}" data-id="{{ $x->id }}">
                 <button type="button" class="btn">
                   <iconify-icon icon="solar:clapperboard-edit-linear" class="text-black" width="20"></iconify-icon>
                 </button>
               </a>
 
-              <form method="POST" action="{{url('deleteakunpelanggan/' . $x->id) }}" class="d-inline">
-                @method('DELETE')
+              <form action="{{ url('softdeletepelanggan', $x->id) }}" method="POST" class="row mb-0">
                 @csrf
-                <button type="submit" class="btn">
-                  <iconify-icon icon="solar:trash-bin-2-broken" class="text-black" width="20"></iconify-icon>
+                @method('PUT')
+                <button type="submit" class="btn" onclick="return confirm('Are you sure you want to soft delete this product?');">
+                  <iconify-icon icon="solar:trash-bin-2-broken" class="text-black" width="20"
+                  style="margin-left: -25px;"></iconify-icon>
                 </button>
               </form>
             <!-- </div> -->
-
-            </td>
-          </tr>
+            
+          </td>
+        </tr>
+        @endif
           @endforeach
           @endif
         </tbody>
