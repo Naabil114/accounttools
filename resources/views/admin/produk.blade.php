@@ -39,69 +39,78 @@
         </thead>
         <tbody>
           @foreach($data as $d => $item)
+          @if ($item->status != 2)
+          
           
           @if ($item->id_kategori === 1)
           <tr class="table-danger">
             @elseif($item->id_kategori === 2)
-          <tr class="table-warning">
-            @elseif($item->id_kategori === 4)
-          <tr class="table-success">
-            @elseif($item->id_kategori === 3)
-          <tr class="table-info">
-            @else
-          <tr class="table-primary">
-            @endif
-            <td> {{ $d+1 }} </td>
-            <td>
-              <img src="{{ asset('storage/produk/' . $item->foto) }}" width="35" height="35">
-            </td>
-            <td class="text-dark"> {{$item->email}} </td>
-            <td class="text-dark"> {{$item->password}} </td>
-            <td class="text-dark">{{$item->kategoriakun->nama}}</td>
-            <td class="text-dark"> {{$item->nama_produk}} </td>
-            <td class="text-dark"> {{$item->harga}} </td>
-            <td class="text-dark"> {{$item->stok}} </td>
-            <td class="text-dark"> {{$item->kategori}} </td>
-            <td class="text-dark"> {{$item->deskripsi}} </td>
-            <td class="text-dark"> {{$item->diskon}} </td>
-            <td class="text-dark"> {{$item->harga_akhir}} </td>
-            <td>
-              <div class="d-flex justify-content-around">
-                <a href="{{url('editproduk/' . $item->id_produk . '/edit')}}">
-                  <button type="button" class="btn">
-                    <iconify-icon icon="solar:clapperboard-edit-linear" class="text-black" width="20" style="margin-left: -25px;"></iconify-icon>
-                  </button>
-                </a>
-
-                <form method="POST" action="{{url('deleteproduk/' . $item->id_produk) }}" class="d-inline">
-                  @method('DELETE')
-                  @csrf
-                  <button type="submit" class="btn">
-                    <iconify-icon icon="solar:trash-bin-2-broken" class="text-black" width="20" style="margin-left: -25px;"></iconify-icon>
-                  </button>
-                </form>
-              </div>
-
-            </td>
-          </tr>
-          @endforeach
+            <tr class="table-warning">
+              @elseif($item->id_kategori === 4)
+              <tr class="table-success">
+                @elseif($item->id_kategori === 3)
+                <tr class="table-info">
+                  @else
+                  <tr class="table-primary">
+                    @endif
+                    <td> {{ $d + 1 }} </td>
+                    <td>
+                      <img src="{{ asset('storage/produk/' . $item->foto) }}" width="35" height="35">
+                    </td>
+                    <td class="text-dark"> {{$item->email}} </td>
+                    <td class="text-dark"> {{$item->password}} </td>
+        <td class="text-dark">{{$item->kategoriakun->nama}}</td>
+        <td class="text-dark"> {{$item->nama_produk}} </td>
+        <td class="text-dark"> {{$item->harga}} </td>
+        <td class="text-dark"> {{$item->stok}} </td>
+        <td class="text-dark"> {{$item->kategori}} </td>
+        <td class="text-dark"> {{$item->deskripsi}} </td>
+        <td class="text-dark"> {{$item->diskon}} </td>
+        <td class="text-dark"> {{$item->harga_akhir}} </td>
+        <td>
+          <div class="d-flex justify-content-around">
+            <a href="{{url('editproduk/' . $item->id_produk . '/edit')}}">
+              <button type="button" class="btn">
+                <iconify-icon icon="solar:clapperboard-edit-linear" class="text-black" width="20"
+                style="margin-left: -25px;"></iconify-icon>
+              </button>
+            </a>
+            
+            <form action="{{ url('softdeleteproduk', $item->id_produk) }}" method="POST" class="row mb-0">
+              @csrf
+              @method('PUT')
+              <button type="submit" class="btn" onclick="return confirm('Are you sure you want to soft delete this product?');">
+                <iconify-icon icon="solar:trash-bin-2-broken" class="text-black" width="20"
+                style="margin-left: -25px;"></iconify-icon>
+              </button>
+            </form>
+            
+            
+            
+            
+          </div>
+          
+        </td>
+      </tr>
+      @endif
+      @endforeach
         </tbody>
       </table>
     </div>
   </div>
 
   <script>
-    $('.show-confirm').click(function(event) {
+    $('.show-confirm').click(function (event) {
       var form = $(this).closest("form");
       var name = $(this).data("name");
       event.preventDefault();
       swal({
-          title: `Apakah Anda Yakin Untuk Menghapus Produk Ini?`,
-          // text: "If you delete this, it will be gone forever.",
-          icon: "warning",
-          buttons: true,
-          dangerMode: true,
-        })
+        title: `Apakah Anda Yakin Untuk Menghapus Produk Ini?`,
+        // text: "If you delete this, it will be gone forever.",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
         .then((willDelete) => {
           if (willDelete) {
             form.submit();

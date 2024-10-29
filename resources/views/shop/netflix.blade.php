@@ -3,6 +3,8 @@
 
 <div class=container-fluid>
 	@foreach ($data as $n)
+	@if ($n->status == 1)
+	
 	<div class="card shadow" style="width: 15rem; float: left; margin: 40px;">
 		<figure class="product-style">
 			<img class="img-fluid" src="{{ asset('storage/produk/' . $n->foto) }}" class="card-img-top" alt="Produk 1">
@@ -36,6 +38,7 @@
 		  </figure>
 	  </div>
 	</div>
+	@endif
 	@endforeach
 </div>
 @endsection
