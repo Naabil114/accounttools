@@ -911,5 +911,20 @@ class AdminController extends Controller
             return redirect()->back()->with('error', 'Produk tidak ditemukan.');
         }
     }
+    
+    public function softdeleteadmin(Request $request, $id)
+    {
+
+        $user = User::where('id', $id)->first();
+        if ($user) {
+            if ($user->is_active == 1) {
+                $user->update(['is_active' => 2]);
+                // Tambahkan pesan sukses atau redirect ke halaman yang lebih informatif
+                return redirect('akun')->with('success', 'Status produk berhasil diperbarui.');
+            }
+        } else {
+            return redirect()->back()->with('error', 'Produk tidak ditemukan.');
+        }
+    }
 
 }

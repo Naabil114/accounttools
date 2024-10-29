@@ -79,4 +79,5 @@ Route::DELETE('deletekategori/{id}', [AdminController::class, 'destroykategori']
 
 Route::put('/softdeleteproduk/{id_produk}', [AdminController::class, 'softdeleteproduk'])->name('softdeleteproduk');
 Route::put('/softdeletepelanggan/{id}', [AdminController::class, 'softdeletepelanggan']);
+Route::put('/softdeleteadmin/{id}', [AdminController::class, 'softdeleteadmin']);
 });
